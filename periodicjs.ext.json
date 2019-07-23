@@ -1,0 +1,20 @@
+{
+  "periodic_compatibility": "10.5.91",
+  "periodic_dependencies": [
+    {
+      "extname": "periodicjs.ext.passport",
+      "version": "5.0.3"
+    },
+    {
+      "extname": "periodicjs.ext.user_access_control",
+      "version": "9.0.3"
+    },
+    {
+      "extname": "periodicjs.ext.oauth2server",
+      "version": "10.5.1"
+    }
+  ],
+  "periodic_type": 7,
+  "periodic_priority": 4,
+  "periodic_config": {}
+}

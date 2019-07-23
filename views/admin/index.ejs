@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.png">
+    <title><%if(typeof pagedata!=='undefined' && pagedata.title){
+      %><%- pagedata.title %><%
+    } else if(locals.reactapp.settings.title){
+      %><%- locals.reactapp.settings.title %><%
+    } else if(locals.reactapp.settings.name){
+      %><%- locals.reactapp.settings.name %><%
+    } else{%>'Welcome'<%}%></title>
+    <link href="/extensions/periodicjs.ext.reactapp/static/css/<%- locals.reactapp.reactapp_file_paths.css_file_path %>" rel="stylesheet">
+    <%- (locals.reactapp.settings.custom_css_stylesheet)?`<link href="${locals.reactapp.settings.custom_css_stylesheet}" rel="stylesheet">`:'' %>
+    <% if(locals.reactapp.settings.application.additional_header){ %><%- include(`../../../../../content/container/${locals.theme_name}/views/shared/reactapp/header`,{locals}) ;%><% } %>
+    <%
+    if(Array.isArray(locals.reactapp.settings.additional_js_files.header)){
+      locals.reactapp.settings.additional_js_files.header.forEach(headerJS=>{
+        %><script type="text/javascript" src="<%- headerJS %>"></script><%
+      })
+    }
+    %>
+  </head>
+  <body>
+    <div id="root"><%- (typeof body!=='undefined')?body:'' %></div>
+    <script type="text/javascript">
+      <%- locals.periodic.viewHelper.passObjToClient(locals.reactapp.settings,"__padmin") %>
+    </script>
+      <% if(locals.reactapp.settings.application.use_custom_elements){ %><%- include(`../../../../../content/container/${locals.theme_name}/views/shared/reactapp/custom_elements`,{locals});%><% } %>
+    <script type="text/javascript" src="/extensions/periodicjs.ext.reactapp/static/js/<%- locals.reactapp.reactapp_file_paths.js_file_path %>"></script>
+    <% if(locals.reactapp.settings.application.additional_footer){ %><%- include(`../../../../../content/container/${locals.theme_name}/views/shared/reactapp/footer`,{locals}) ;%><% } %>
+    <%
+    if(Array.isArray(locals.reactapp.settings.additional_js_files.footer)){
+      locals.reactapp.settings.additional_js_files.footer.forEach(footerJS=>{
+        %><script type="text/javascript" src="<%- footerJS %>"></script><%
+      })
+    }
+    %>
+  </body>
+</html>
