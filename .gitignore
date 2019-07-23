@@ -32,7 +32,6 @@ build/Release
 node_modules
 node_modules/*
 jspm_packages
-adminclient/package-lock.json
 .vscode/*
 
 # Optional npm cache directory
