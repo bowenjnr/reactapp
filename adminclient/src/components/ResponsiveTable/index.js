@@ -11,7 +11,6 @@ import { flatten, } from 'flat';
 import { getRenderedComponent, } from '../AppLayoutMap';
 import FileReaderInput from 'react-file-reader-input';
 import path from 'path';
-import { csv2json, json2csv, } from 'json-2-csv';
 import RACodeMirror from '../RACodeMirror';
 import ResponsiveDatalist from '../ResponsiveDatalist';
 import { filterQuerySelectOptions, propTypes, defaultProps, getOptionsHeaders, getHeadersFromRows, excludeEmptyHeaders, getFilterOptions, defaultNewRowData, filterQuerySelectOptionsMap, getFilterSortableOption, } from './TableHelpers';
@@ -211,14 +210,6 @@ class ResponsiveTable extends Component {
         results.forEach(result => {
           const [ e, file, ] = result;
           if (path.extname(file.name) === '.csv') {
-            csv2json(e.target.result, (err, newRows) => {
-              if (err) throw err;
-              // console.debug({ newRows, }, 'e.target.result', e.target.result);
-              updatefunction(newRows);
-            }, {
-                options: this.props.csvOptions,
-                // keys: this.state.headers.map(header => header.sortid),  
-              });
           } else {
             let newRows = JSON.parse(e.target.result);
             updatefunction(newRows);
@@ -1292,19 +1283,6 @@ class ResponsiveTable extends Component {
                 }}>JSON</rb.Button>
                 <rb.Button icon="fa fa-download" onClick={() => {
                   // console.debug('this.state.rows', this.state.rows);
-                  json2csv(this.state.rows, (err, csv) => {
-                    // console.debug('before csv',csv );
-                    this.props.fileSaver({
-                      data: csv,
-                      type: 'text/csv;charset=utf-8',
-                      filename: window.location.pathname.replace(/\//gi, '_') + '.csv',
-                    });
-                  }, {
-                      checkSchemaDifferences: false,
-                      delimiter: {
-                        wrap: '"',
-                      },
-                    });
                 }}>CSV</rb.Button>
                 <rb.Button icon="fa fa-download" onClick={() => {
                   // console.debug('this.state.rows', this.state.rows);
@@ -1321,19 +1299,6 @@ class ResponsiveTable extends Component {
                     return copy;
                   });
                   // console.log({ filtered_rows });
-                  json2csv(filtered_rows, (err, csv) => {
-                    // console.debug('before csv',csv );
-                    this.props.fileSaver({
-                      data: csv,
-                      type: 'text/csv;charset=utf-8',
-                      filename: window.location.pathname.replace(/\//gi, '_') + '.csv',
-                    });
-                  }, {
-                      checkSchemaDifferences: false,
-                      delimiter: {
-                        wrap: '"',
-                      },
-                    });
                 }}>Simple CSV</rb.Button>
                 <hr />
               </rb.Content>
