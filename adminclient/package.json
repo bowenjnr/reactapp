@@ -31,9 +31,9 @@
     "useragent": "^2.1.13"
   },
   "dependencies": {
-    "@digifi-los/react-sortable": "0.0.1",
-    "babel-polyfill": "^6.23.0",
+    "@digifi/react-sortable-hoc": "0.0.2",
     "babel-core": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.4.0",
     "debounce": "^1.0.0",
     "draft-js": "^0.10.0",

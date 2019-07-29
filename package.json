@@ -30,7 +30,7 @@
     }
   ],
   "dependencies": {
-    "@digifi-los/react-sortable": "^0.0.1",
+    "@digifi/react-sortable-hoc": "^0.0.2",
     "babel-polyfill": "^6.23.0",
     "capitalize": "^1.0.0",
     "debounce": "^1.0.0",
@@ -164,5 +164,5 @@
     "ssr_build": "babel adminclient/src -d adminclient/_src --ignore adminclient/src/components/RACodeMirror/",
     "test": "mocha -R spec --recursive"
   },
-  "version": "0.0.3"
+  "version": "0.0.4"
 }

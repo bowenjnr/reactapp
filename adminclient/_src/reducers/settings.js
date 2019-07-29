@@ -147,6 +147,8 @@ var packageJSON = {
   devDependencies: {
     '@fortawesome/fontawesome-pro': '^5.9.0',
     'animate.css': '^3.5.2',
+    'babel-core': '^6.26.3',
+    'babel-preset-env': '^1.7.0',
     capitalize: '^1.0.0',
     eslint: '^3.14.1',
     'font-awesome': '^4.7.0',
@@ -171,9 +173,9 @@ var packageJSON = {
     useragent: '^2.1.13'
   },
   dependencies: {
-    '@digifi-los/react-sortable': '0.0.1',
-    'babel-polyfill': '^6.23.0',
+    '@digifi/react-sortable-hoc': '0.0.2',
     'babel-core': '^6.24.1',
+    'babel-polyfill': '^6.23.0',
     'babel-preset-env': '^1.4.0',
     debounce: '^1.0.0',
     'draft-js': '^0.10.0',

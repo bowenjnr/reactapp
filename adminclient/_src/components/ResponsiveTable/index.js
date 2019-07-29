@@ -96,8 +96,6 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _json2Csv = require('json-2-csv');
-
 var _RACodeMirror = require('../RACodeMirror');
 
 var _RACodeMirror2 = _interopRequireDefault(_RACodeMirror);
@@ -342,16 +340,7 @@ var ResponsiveTable = function (_Component) {
                 e = _result[0],
                 file = _result[1];
 
-            if (_path2.default.extname(file.name) === '.csv') {
-              (0, _json2Csv.csv2json)(e.target.result, function (err, newRows) {
-                if (err) throw err;
-                // console.debug({ newRows, }, 'e.target.result', e.target.result);
-                updatefunction(newRows);
-              }, {
-                options: _this2.props.csvOptions
-                // keys: this.state.headers.map(header => header.sortid),  
-              });
-            } else {
+            if (_path2.default.extname(file.name) === '.csv') {} else {
               var newRows = JSON.parse(e.target.result);
               updatefunction(newRows);
             }
@@ -1630,19 +1619,6 @@ var ResponsiveTable = function (_Component) {
                 rb.Button,
                 { icon: 'fa fa-download', onClick: function onClick() {
                     // console.debug('this.state.rows', this.state.rows);
-                    (0, _json2Csv.json2csv)(_this8.state.rows, function (err, csv) {
-                      // console.debug('before csv',csv );
-                      _this8.props.fileSaver({
-                        data: csv,
-                        type: 'text/csv;charset=utf-8',
-                        filename: window.location.pathname.replace(/\//gi, '_') + '.csv'
-                      });
-                    }, {
-                      checkSchemaDifferences: false,
-                      delimiter: {
-                        wrap: '"'
-                      }
-                    });
                   } },
                 'CSV'
               ),
@@ -1663,19 +1639,6 @@ var ResponsiveTable = function (_Component) {
                       return copy;
                     });
                     // console.log({ filtered_rows });
-                    (0, _json2Csv.json2csv)(filtered_rows, function (err, csv) {
-                      // console.debug('before csv',csv );
-                      _this8.props.fileSaver({
-                        data: csv,
-                        type: 'text/csv;charset=utf-8',
-                        filename: window.location.pathname.replace(/\//gi, '_') + '.csv'
-                      });
-                    }, {
-                      checkSchemaDifferences: false,
-                      delimiter: {
-                        wrap: '"'
-                      }
-                    });
                   } },
                 'Simple CSV'
               ),

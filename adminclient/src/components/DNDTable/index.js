@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, } from 'react';
 import { getRenderedComponent, } from '../AppLayoutMap';
 import {render} from 'react-dom';
-import {SortableContainer, SortableElement, arrayMove} from '@digifi-los/react-sortable';
+import {SortableContainer, SortableElement, arrayMove} from '@digifi/react-sortable-hoc';
 import { Table, List, Column,  } from 'react-virtualized';
 import defaultTableRowRenderer from './tableHelpers';
 import classNames from 'classnames';

@@ -46,7 +46,7 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactSortable = require('@digifi-los/react-sortable');
+var _reactSortableHoc = require('@digifi/react-sortable-hoc');
 
 var _reactVirtualized = require('react-virtualized');
 
@@ -164,7 +164,7 @@ var ListWrapper = function (_Component) {
       var onSortEnd = this.props.onSortEnd;
       var rows = this.state.rows;
 
-      var newRows = (0, _reactSortable.arrayMove)(rows, oldIndex, newIndex);
+      var newRows = (0, _reactSortableHoc.arrayMove)(rows, oldIndex, newIndex);
       this.setState((0, _assign2.default)({}, { rows: newRows }, { isSorting: false }), function () {
         _this2.props.handleRowUpdate(newRows);
       });
@@ -287,8 +287,8 @@ var TableWrapper = function (_Component2) {
           toggleRowKeys = _props.toggleRowKeys,
           toggleRowClass = _props.toggleRowClass;
 
-      var SortableTable = (0, _reactSortable.SortableContainer)(_reactVirtualized.Table, { withRef: true });
-      var SortableRowRenderer = (0, _reactSortable.SortableElement)(_tableHelpers2.default);
+      var SortableTable = (0, _reactSortableHoc.SortableContainer)(_reactVirtualized.Table, { withRef: true });
+      var SortableRowRenderer = (0, _reactSortableHoc.SortableElement)(_tableHelpers2.default);
       var tableheaders = headers.map(function (header, idx) {
         return _react2.default.createElement(_reactVirtualized.Column, { content: idx,
           cellRenderer: _this5.cellRenderer,
