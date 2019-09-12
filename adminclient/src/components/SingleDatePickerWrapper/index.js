@@ -102,14 +102,16 @@ class SingleDatePickerWrapper extends Component {
     ]);
 
     return (
-      <SingleDatePicker
-        {...props}
-        id="date_input"
-        date={date}
-        focused={focused}
-        onDateChange={this.onDateChange}
-        onFocusChange={this.onFocusChange}
-      />
+      <div className={`${(this.state.focused) ? '__ra_date_picker_active' : ''}`}>
+        <SingleDatePicker
+          {...props}
+          id="date_input"
+          date={date}
+          focused={focused}
+          onDateChange={this.onDateChange}
+          onFocusChange={this.onFocusChange}
+        />
+      </div>
     );
   }
 }
