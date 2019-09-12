@@ -232,7 +232,7 @@ function getCustomErrorIcon(hasError, isValid, state, formelement) {
   var iconStyle = formelement.customIconStyle;
   var iconVar = hasError ? formelement.errorIcon || 'fa fa-exclamation' : isValid ? formelement.validIcon || 'fa fa-check' : formelement.initialIcon ? formelement.initialIcon : '';
 
-  return formelement.errorIconRight || formelement.errorIconLeft ? _react2.default.createElement('i', { className: '__re-bulma_fa ' + iconVar, style: iconStyle }) : null;
+  return formelement.errorIconRight || formelement.errorIconLeft ? _react2.default.createElement('i', { className: '__re-bulma_fa ' + iconVar + ' __ra_custom_error_icon', style: iconStyle }) : null;
 }
 
 function getCustomLeftIcon(formElement, state) {
@@ -617,6 +617,7 @@ function getFormDatalist(options) {
       value: initialValue }))
   );
 }
+
 function getFormDropdown(options) {
   var _this6 = this;
 
@@ -631,7 +632,13 @@ function getFormDropdown(options) {
   var wrapperProps = (0, _assign2.default)({
     className: '__re-bulma_control'
   }, formElement.wrapperProps);
-
+  var _renderContentComponent = function _renderContentComponent(content) {
+    if ((typeof content === 'undefined' ? 'undefined' : (0, _typeof3.default)(content)) === 'object' && !Array.isArray(content)) {
+      return _this6.getRenderedComponent(content);
+    } else {
+      return content;
+    }
+  };
   wrapperProps.className = (hasError || isValid || formElement.initialIcon) && (formElement.errorIconRight || formElement.errorIconLeft) ? formElement.errorIconRight ? wrapperProps.className + ' __re-bulma_has-icon __re-bulma_has-icon-right' : wrapperProps.className + ' __re-bulma_has-icon __re-bulma_has-icon-left' : wrapperProps.className;
   wrapperProps.className = formElement.leftIcon || formElement.updateIconOnChange ? wrapperProps.className + ' __ra-left-icon' : wrapperProps.className;
 
@@ -646,17 +653,17 @@ function getFormDropdown(options) {
   if (this.props.__formOptions && formElement.formoptions_field && this.props.__formOptions[formElement.formoptions_field]) {
     dropdowndata = this.props.__formOptions[formElement.formoptions_field];
     dropdowndata = dropdowndata.map(function (option) {
-      return option[imageField] ? { text: option[displayField], value: option[valueField], key: option[valueField], image: { avatar: true, src: option[imageField] } } : { text: option[displayField], value: option[valueField], key: option[valueField], icon: option.icon, selectedLabelStyle: option.selectedLabelStyle, content: option.content ? _this6.getRenderedComponent(option.content) : null };
+      return option[imageField] ? { text: _renderContentComponent(option[displayField]), value: option[valueField], key: option[valueField], image: { avatar: true, src: option[imageField] } } : { text: _renderContentComponent(option[displayField]), value: option[valueField], key: option[valueField], icon: option.icon, selectedLabelStyle: option.selectedLabelStyle, content: option.content ? _this6.getRenderedComponent(option.content) : null };
     });
   } else if (this.props.__formOptions && this.props.__formOptions[formElement.name]) {
     dropdowndata = this.props.__formOptions[formElement.name];
     dropdowndata = dropdowndata.map(function (option) {
-      return option[imageField] ? { text: option[displayField], value: option[valueField], key: option[valueField], image: { avatar: true, src: option[imageField] } } : { text: option[displayField], value: option[valueField], key: option[valueField], icon: option.icon, selectedLabelStyle: option.selectedLabelStyle, content: option.content ? _this6.getRenderedComponent(option.content) : null };
+      return option[imageField] ? { text: _renderContentComponent(option[displayField]), value: option[valueField], key: option[valueField], image: { avatar: true, src: option[imageField] } } : { text: _renderContentComponent(option[displayField]), value: option[valueField], key: option[valueField], icon: option.icon, selectedLabelStyle: option.selectedLabelStyle, content: option.content ? _this6.getRenderedComponent(option.content) : null };
     });
   } else {
     dropdowndata = formElement.options || [];
     dropdowndata = dropdowndata.map(function (option) {
-      return option[imageField] ? { text: option[displayField], value: option[valueField], key: option[valueField], image: { avatar: true, src: option[imageField] } } : { text: option[displayField], value: option[valueField], key: option[valueField], icon: option.icon, selectedLabelStyle: option.selectedLabelStyle, content: option.content ? _this6.getRenderedComponent(option.content) : null };
+      return option[imageField] ? { text: _renderContentComponent(option[displayField]), value: option[valueField], key: option[valueField], image: { avatar: true, src: option[imageField] } } : { text: _renderContentComponent(option[displayField]), value: option[valueField], key: option[valueField], icon: option.icon, selectedLabelStyle: option.selectedLabelStyle, content: option.content ? _this6.getRenderedComponent(option.content) : null };
     });
   }
   passedProps.options = dropdowndata;
@@ -922,7 +929,6 @@ function getFormMaskedInput(options) {
     _react2.default.createElement(
       'span',
       (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative' }) }),
-      getCustomLeftIcon(formElement),
       _react2.default.createElement(_reactTextMask2.default, (0, _extends3.default)({}, passableProps, {
         mask: mask,
         className: hasError ? passableProps.className + ' __re-bulma_is-danger' : passableProps.className,
@@ -930,6 +936,7 @@ function getFormMaskedInput(options) {
         onChange: onChange,
         placeholder: formElement.placeholder,
         value: initialValue })),
+      getCustomLeftIcon(formElement),
       getCustomErrorIcon(hasError, isValid, this.state, formElement),
       getCustomErrorLabel(hasError, this.state, formElement)
     )
@@ -957,7 +964,7 @@ function getFormAddressAPIInput(options) {
   }, formElement.passProps);
 
   var wrapperProps = (0, _assign2.default)({}, formElement.wrapperProps, {
-    className: '__re-bulma_control' + (formElement.leftIcon ? ' __ra-left-icon' : '') + ' ' + (formElement.wrapperProps && formElement.wrapperProps.className ? formElement.wrapperProps.className : '')
+    className: '__re-bulma_control __re-bulma_has-icon __re-bulma_has-icon-right' + (formElement.leftIcon ? ' __ra-left-icon' : '') + ' ' + (formElement.wrapperProps && formElement.wrapperProps.className ? formElement.wrapperProps.className : '')
   });
   if (initialValue && (typeof initialValue === 'undefined' ? 'undefined' : (0, _typeof3.default)(initialValue)) === 'object') {
     initialValue = initialValue.formatted_address || '';
@@ -1048,7 +1055,6 @@ function getFormAddressAPIInput(options) {
       _react2.default.createElement(
         'div',
         (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative' }) }),
-        getCustomLeftIcon(formElement),
         _react2.default.createElement(_reactLoadScript2.default, {
           url: 'https://maps.googleapis.com/maps/api/js?key=' + api_credential + '&libraries=places',
           onLoad: handleScriptLoad
@@ -1061,28 +1067,10 @@ function getFormAddressAPIInput(options) {
           },
           help: getFormElementHelp(hasError, this.state, formElement.name),
           color: hasError ? 'isDanger' : undefined,
-          icon: hasError ? formElement.errorIcon || 'fa fa-exclamation' : isValid ? formElement.validIcon || 'fa fa-check' : formElement.initialIcon ? formElement.initialIcon : undefined,
-          hasIconRight: formElement.errorIconRight,
-          placeholder: formElement.placeholder }))
-      )
-    );
-  } else if (formElement.leftIcon) {
-    return _react2.default.createElement(
-      _FormItem2.default,
-      (0, _extends3.default)({ key: i }, formElement.layoutProps, { initialIcon: formElement.initialIcon, isValid: isValid, hasError: hasError, hasValue: hasValue }),
-      formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
-      _react2.default.createElement(
-        'div',
-        (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative' }) }),
-        getCustomLeftIcon(formElement),
-        _react2.default.createElement(_reBulma.Input, (0, _extends3.default)({}, passableProps, {
-          help: getFormElementHelp(hasError, this.state, formElement.name),
-          color: hasError ? 'isDanger' : undefined,
-          icon: hasError ? formElement.errorIcon || 'fa fa-exclamation' : isValid ? formElement.validIcon || 'fa fa-check' : formElement.initialIcon ? formElement.initialIcon : undefined,
-          hasIconRight: formElement.errorIconRight,
-          onChange: onChange,
-          placeholder: formElement.placeholder,
-          value: initialValue }))
+          icon: formElement.leftIcon ? formElement.leftIcon : null,
+          hasIcon: true,
+          placeholder: formElement.placeholder })),
+        getCustomErrorIcon(hasError, isValid, this.state, formElement)
       )
     );
   } else {
@@ -1090,14 +1078,19 @@ function getFormAddressAPIInput(options) {
       _FormItem2.default,
       (0, _extends3.default)({ key: i }, formElement.layoutProps, { initialIcon: formElement.initialIcon, isValid: isValid, hasError: hasError, hasValue: hasValue }),
       formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
-      _react2.default.createElement(_reBulma.Input, (0, _extends3.default)({}, passableProps, {
-        help: getFormElementHelp(hasError, this.state, formElement.name),
-        color: hasError ? 'isDanger' : undefined,
-        icon: hasError ? formElement.errorIcon || 'fa fa-exclamation' : isValid ? formElement.validIcon || 'fa fa-check' : formElement.initialIcon ? formElement.initialIcon : undefined,
-        hasIconRight: formElement.errorIconRight,
-        onChange: onChange,
-        placeholder: formElement.placeholder,
-        value: initialValue }))
+      _react2.default.createElement(
+        'div',
+        (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative' }) }),
+        _react2.default.createElement(_reBulma.Input, (0, _extends3.default)({}, passableProps, {
+          help: getFormElementHelp(hasError, this.state, formElement.name),
+          color: hasError ? 'isDanger' : undefined,
+          icon: formElement.leftIcon ? formElement.leftIcon : null,
+          hasIcon: true,
+          onChange: onChange,
+          placeholder: formElement.placeholder,
+          value: initialValue })),
+        getCustomErrorIcon(hasError, isValid, this.state, formElement)
+      )
     );
   }
 }
@@ -1124,7 +1117,7 @@ function getFormTextInputArea(options) {
     passableProps.className = fileClassname;
   }
   var wrapperProps = (0, _assign2.default)({}, formElement.wrapperProps, {
-    className: '__re-bulma_control' + (formElement.leftIcon ? ' __ra-left-icon' : '') + ' ' + (formElement.wrapperProps && formElement.wrapperProps.className ? formElement.wrapperProps.className : '')
+    className: '__re-bulma_control __re-bulma_has-icon __re-bulma_has-icon-right' + (formElement.leftIcon ? ' __ra-left-icon' : '') + ' ' + (formElement.wrapperProps && formElement.wrapperProps.className ? formElement.wrapperProps.className : '')
   });
 
   if (typeof initialValue !== 'string') {
@@ -1178,41 +1171,24 @@ function getFormTextInputArea(options) {
     });
   }
   if (submitMultipartForm) clearTimeout(submitMultipartForm);
-
-  if (formElement.leftIcon) {
-    return _react2.default.createElement(
-      _FormItem2.default,
-      (0, _extends3.default)({ key: i }, formElement.layoutProps, { initialIcon: formElement.initialIcon, isValid: isValid, hasError: hasError, hasValue: hasValue }),
-      formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
-      _react2.default.createElement(
-        'div',
-        (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative', display: 'block' }) }),
-        getCustomLeftIcon(formElement),
-        _react2.default.createElement(_reBulma.Input, (0, _extends3.default)({}, passableProps, {
-          help: getFormElementHelp(hasError, this.state, formElement.name),
-          color: hasError ? 'isDanger' : undefined,
-          icon: hasError ? formElement.errorIcon || 'fa fa-exclamation' : isValid ? formElement.validIcon || 'fa fa-check' : formElement.initialIcon ? formElement.initialIcon : undefined,
-          hasIconRight: formElement.errorIconRight,
-          onChange: onChange,
-          placeholder: formElement.placeholder,
-          value: initialValue }))
-      )
-    );
-  } else {
-    return _react2.default.createElement(
-      _FormItem2.default,
-      (0, _extends3.default)({ key: i }, formElement.layoutProps, { initialIcon: formElement.initialIcon, isValid: isValid, hasError: hasError, hasValue: hasValue }),
-      formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
+  return _react2.default.createElement(
+    _FormItem2.default,
+    (0, _extends3.default)({ key: i }, formElement.layoutProps, { initialIcon: formElement.initialIcon, isValid: isValid, hasError: hasError, hasValue: hasValue }),
+    formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
+    _react2.default.createElement(
+      'div',
+      (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative', display: 'block' }) }),
       _react2.default.createElement(_reBulma.Input, (0, _extends3.default)({}, passableProps, {
         help: getFormElementHelp(hasError, this.state, formElement.name),
         color: hasError ? 'isDanger' : undefined,
-        icon: hasError ? formElement.errorIcon || 'fa fa-exclamation' : isValid ? formElement.validIcon || 'fa fa-check' : formElement.initialIcon ? formElement.initialIcon : undefined,
-        hasIconRight: formElement.errorIconRight,
+        icon: formElement.leftIcon ? formElement.leftIcon : null,
+        hasIcon: true,
         onChange: onChange,
         placeholder: formElement.placeholder,
-        value: initialValue }))
-    );
-  }
+        value: initialValue })),
+      getCustomErrorIcon(hasError, isValid, this.state, formElement)
+    )
+  );
 }
 
 function getFormImageCropper(options) {
@@ -1342,7 +1318,6 @@ function getFormSelect(options) {
     _react2.default.createElement(
       'div',
       { className: "__re-bulma_control" + iconClassNames, style: { position: 'relative', display: 'block' } },
-      getCustomLeftIcon(formElement),
       _react2.default.createElement(
         _reBulma.Select,
         (0, _extends3.default)({}, formElement.passProps, {
@@ -1363,6 +1338,7 @@ function getFormSelect(options) {
           );
         })
       ),
+      getCustomLeftIcon(formElement),
       !formElement.errorIconLeft ? getCustomErrorIcon(hasError, isValid, this.state, formElement) : null
     )
   );
@@ -1703,12 +1679,12 @@ function getRawInput(options) {
     _react2.default.createElement(
       'div',
       (0, _extends3.default)({}, wrapperProps, { style: (0, _assign2.default)({}, wrapperProps.style, { position: 'relative' }) }),
-      getCustomLeftIcon(formElement),
       _react2.default.createElement('input', (0, _extends3.default)({}, passableProps, {
         type: formElement.type,
         checked: this.state[formElement.name],
         onChange: onValueChange
       })),
+      getCustomLeftIcon(formElement),
       getCustomErrorLabel(hasError, this.state, formElement)
     )
   );
@@ -2081,9 +2057,9 @@ function getFormDatePicker(options) {
       formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
       _react2.default.createElement(
         'div',
-        { className: '__re-bulma_control  __re-bulma_has-icon __re-bulma_has-icon-right' + (formElement.leftIcon ? ' __ra-left-icon' : ''), style: { position: 'relative' } },
-        getCustomLeftIcon(formElement),
+        { className: '__re-bulma_control' + (formElement.leftIcon ? ' __ra-left-icon' : ''), style: { position: 'relative' } },
         _react2.default.createElement(_SingleDatePickerWrapper2.default, (0, _extends3.default)({ key: i }, SingleDatePickerProps)),
+        getCustomLeftIcon(formElement),
         getCustomErrorIcon(hasError, isValid, this.state, formElement),
         getCustomErrorLabel(hasError, this.state, formElement)
       )
@@ -2095,9 +2071,9 @@ function getFormDatePicker(options) {
       formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement),
       _react2.default.createElement(
         'div',
-        { className: '__re-bulma_control  __re-bulma_has-icon __re-bulma_has-icon-right' + (formElement.leftIcon ? ' __ra-left-icon' : ''), style: { position: 'relative' } },
-        getCustomLeftIcon(formElement),
+        { className: '__re-bulma_control' + (formElement.leftIcon ? ' __ra-left-icon' : ''), style: { position: 'relative' } },
         _react2.default.createElement(_DateRangePickerWrapper2.default, (0, _extends3.default)({ key: i }, RangeDatePickerProps)),
+        getCustomLeftIcon(formElement),
         getCustomErrorIcon(hasError, isValid, this.state, formElement),
         getCustomErrorLabel(hasError, this.state, formElement)
       )
