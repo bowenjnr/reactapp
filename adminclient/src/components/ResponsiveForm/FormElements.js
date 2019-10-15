@@ -21,7 +21,7 @@ import Slider from 'rc-slider';
 import { default as RCSwitch } from 'rc-switch';
 import { ControlLabel, Label, Input, Button, CardFooterItem, Select, Textarea, Group, Image, } from 're-bulma';
 import MaskedInput from 'react-text-mask';
-import { Dropdown, Checkbox, Step, Radio } from 'semantic-ui-react';
+import {Dropdown, Checkbox, Step} from 'semantic-ui-react';
 import moment from 'moment';
 import numeral from 'numeral';
 import pluralize from 'pluralize';
@@ -504,6 +504,45 @@ export function getFormDatalist(options) {
   </FormItem>);
 }
 
+export function getFormCombobox(options) {
+  let { formElement, i, } = options;
+  let customLabel = getCustomFormLabel.bind(this);
+  let wrapperProps = Object.assign({
+    className: '__re-bulma_control',
+  }, formElement.wrapperProps)
+
+  let comboboxInput;
+  let handleAddition = () => {
+    if (comboboxInput.value) {
+      this.setState({ [formElement.name]: [comboboxInput.value, ...this.state[formElement.name]] })
+      comboboxInput.value = "";
+    }
+
+  }
+  let handleDelete = (idx) => {
+    this.state[formElement.name].splice(idx, 1)
+    this.setState({ [formElement.name]: this.state[formElement.name]})
+  }
+
+  return (<FormItem key={i} {...formElement.layoutProps} initialIcon={formElement.initialIcon}>
+    {formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement)}
+    <div role="combobox" {...wrapperProps} style={Object.assign({}, wrapperProps.style, { position: 'relative' })}>
+      <div className="__re-bulma_control __ra_combobox_item">
+        <input className="__re-bulma_input" onEnter={handleAddition} ref={(ref) => comboboxInput = ref} />
+        <Button color="isSuccess" onClick={handleAddition}>ADD</Button>
+      </div>
+      {this.state[formElement.name].map((el, idx) => {
+        return (
+          <div className="__re-bulma_control __ra_combobox_item" key={`${formElement.name}_combobox_${idx}`}>
+            <input className="__re-bulma_input" value={el} readOnly/>
+            <Button color="isDanger" onClick={() => handleDelete(idx)}>Delete</Button>
+          </div>
+        )
+      })}
+    </div>
+  </FormItem>);
+}
+
 export function getFormDropdown(options) {
   let { formElement, i, } = options;
   let initialValue = getInitialValue(formElement, Object.assign({}, this.state, unflatten(this.state)));
@@ -622,6 +661,8 @@ export function getFormDropdown(options) {
     </div>
   </FormItem>);
 }
+
+
 
 export function getFormRemoteDropdown(options) {
   let { formElement, i, } = options;
