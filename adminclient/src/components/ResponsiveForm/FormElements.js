@@ -528,7 +528,7 @@ export function getFormCombobox(options) {
     {formElement.customLabel ? customLabel(formElement) : getFormLabel(formElement)}
     <div role="combobox" {...wrapperProps} style={Object.assign({}, wrapperProps.style, { position: 'relative' })}>
       <div className="__re-bulma_control __ra_combobox_item">
-        <input className="__re-bulma_input" onEnter={handleAddition} ref={(ref) => comboboxInput = ref} />
+        <input className="__re-bulma_input" ref={(ref) => comboboxInput = ref} />
         <Button color="isSuccess" onClick={handleAddition}>ADD</Button>
       </div>
       {this.state[formElement.name].map((el, idx) => {
