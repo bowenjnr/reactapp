@@ -8,6 +8,7 @@ import {
   getFormMaskedInput,
   getFormAddressAPIInput,
   getFormDNDTable,
+  getFormCombobox,
   getFormDropdown,
   getFormRemoteDropdown,
   getFormCheckbox,
@@ -149,6 +150,7 @@ class ResponsiveForm extends Component {
     this.getFormTextInputArea = getFormTextInputArea.bind(this);
     this.getFormMaskedInput = getFormMaskedInput.bind(this);
     this.getFormAddressAPIInput = getFormAddressAPIInput.bind(this);
+    this.getFormCombobox = getFormCombobox.bind(this);
     this.getFormDropdown = getFormDropdown.bind(this);
     this.getFormColorPicker = getFormColorPicker.bind(this);
     this.getFormTextArea = getFormTextArea.bind(this);
@@ -503,6 +505,8 @@ class ResponsiveForm extends Component {
           return this.getHiddenInput({ formElement, i: j, formgroup, });
         } else if (formElement.type === 'datalist') {
           return this.getFormDatalist({ formElement, i: j, formgroup, });
+        } else if (formElement.type === 'combobox') {
+          return this.getFormCombobox({ formElement, i: j, formgroup, });
         } else if (formElement.type === 'dropdown') {
           return this.getFormDropdown({ formElement, i: j, formgroup, });
         } else if (formElement.type === 'address_api_input') {
