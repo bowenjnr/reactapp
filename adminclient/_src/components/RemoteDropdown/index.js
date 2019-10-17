@@ -76,7 +76,7 @@ var RemoteDropdown = function (_Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
-      if (this.props.value || !this.props.value && this.props.emptyQuery) {
+      if (this.props.fetchOnMount && (this.props.value || !this.props.value && this.props.emptyQuery)) {
         this.setState({ searchQuery: this.props.value, isFetching: true }, function () {
           var stateProps = _this2.props.getState();
           var options = _this2.props.searchProps;
