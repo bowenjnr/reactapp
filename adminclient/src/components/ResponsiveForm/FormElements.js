@@ -505,21 +505,23 @@ export function getFormDatalist(options) {
 }
 
 export function getFormCombobox(options) {
-  let { formElement, i, } = options;
-  let customLabel = getCustomFormLabel.bind(this);
-  let wrapperProps = Object.assign({
+  const { formElement, i, } = options;
+  const customLabel = getCustomFormLabel.bind(this);
+  const wrapperProps = Object.assign({
     className: '__re-bulma_control',
   }, formElement.wrapperProps)
 
+  this.state[formElement.name] = this.state[formElement.name] || []
+
   let comboboxInput;
-  let handleAddition = () => {
+  const handleAddition = () => {
     if (comboboxInput.value) {
       this.setState({ [formElement.name]: [comboboxInput.value, ...this.state[formElement.name]] })
       comboboxInput.value = "";
     }
 
   }
-  let handleDelete = (idx) => {
+  const handleDelete = (idx) => {
     this.state[formElement.name].splice(idx, 1)
     this.setState({ [formElement.name]: this.state[formElement.name]})
   }
@@ -531,14 +533,17 @@ export function getFormCombobox(options) {
         <input className="__re-bulma_input" ref={(ref) => comboboxInput = ref} />
         <Button color="isSuccess" onClick={handleAddition}>ADD</Button>
       </div>
-      {this.state[formElement.name].map((el, idx) => {
+      {this.state[formElement.name] && Array.isArray(this.state[formElement.name])
+        ? this.state[formElement.name].map((el, idx) => {
         return (
           <div className="__re-bulma_control __ra_combobox_item" key={`${formElement.name}_combobox_${idx}`}>
             <input className="__re-bulma_input" value={el} readOnly/>
             <Button color="isDanger" onClick={() => handleDelete(idx)}>Delete</Button>
           </div>
         )
-      })}
+      })
+      : null
+    }
     </div>
   </FormItem>);
 }
