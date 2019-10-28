@@ -634,6 +634,8 @@ function getFormCombobox(options) {
     className: '__re-bulma_control'
   }, formElement.wrapperProps);
 
+  this.state[formElement.name] = this.state[formElement.name] || [];
+
   var comboboxInput = void 0;
   var handleAddition = function handleAddition() {
     if (comboboxInput.value) {
@@ -665,7 +667,7 @@ function getFormCombobox(options) {
           'ADD'
         )
       ),
-      this.state[formElement.name].map(function (el, idx) {
+      this.state[formElement.name] && Array.isArray(this.state[formElement.name]) ? this.state[formElement.name].map(function (el, idx) {
         return _react2.default.createElement(
           'div',
           { className: '__re-bulma_control __ra_combobox_item', key: formElement.name + '_combobox_' + idx },
@@ -678,7 +680,7 @@ function getFormCombobox(options) {
             'Delete'
           )
         );
-      })
+      }) : null
     )
   );
 }
