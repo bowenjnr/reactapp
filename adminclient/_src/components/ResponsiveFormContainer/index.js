@@ -125,7 +125,8 @@ var ResponsiveFormContainer = function (_Component) {
 
       var formElementsQueue = [];
       formElementsQueue.push.apply(formElementsQueue, (0, _toConsumableArray3.default)(formgroup.formElements[0][prop].slice()));
-      formgroup.formElements[0][prop] = order.length ? order.map(function (el) {
+
+      formgroup.formElements[0][prop] = order && order.length ? order.map(function (el) {
         return false;
       }) : [];
       while (formElementsQueue.length > 0) {
@@ -133,10 +134,10 @@ var ResponsiveFormContainer = function (_Component) {
         if (currentElement.name && this.props.renderFormElements[currentElement.name]) {
           currentElement = window[this.props.renderFormElements[currentElement.name].replace('func:window.', '')].call(this, currState, formElementsQueue, currentElement, prevState);
           if (currentElement) {
-            if (order.length) formgroup.formElements[0][prop][order.indexOf(currentElement.name)] = currentElement;else formgroup.formElements[0][prop].push(currentElement);
+            if (order && order.length) formgroup.formElements[0][prop][order.indexOf(currentElement.name)] = currentElement;else formgroup.formElements[0][prop].push(currentElement);
           }
         } else {
-          if (order.length) formgroup.formElements[0][prop][order.indexOf(currentElement.name)] = currentElement;else formgroup.formElements[0][prop].push(currentElement);
+          if (order && order.length) formgroup.formElements[0][prop][order.indexOf(currentElement.name)] = currentElement;else formgroup.formElements[0][prop].push(currentElement);
         }
       }
       formgroup.formElements[0][prop] = formgroup.formElements[0][prop].filter(function (el) {
