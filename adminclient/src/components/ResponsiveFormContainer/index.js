@@ -57,17 +57,18 @@ class ResponsiveFormContainer extends Component {
     let { formgroup, prevState, currState, prop, order } = options;
     let formElementsQueue = [];
     formElementsQueue.push(...formgroup.formElements[ 0 ][ prop ].slice());
-    formgroup.formElements[ 0 ][ prop ] = (order.length) ? order.map(el => false) : [];
+    
+    formgroup.formElements[ 0 ][ prop ] = (order && order.length) ? order.map(el => false) : [];
     while (formElementsQueue.length > 0) {
       let currentElement = formElementsQueue.shift();
       if (currentElement.name && this.props.renderFormElements[ currentElement.name ]) {
         currentElement = window[ this.props.renderFormElements[ currentElement.name ].replace('func:window.', '') ].call(this, currState, formElementsQueue, currentElement, prevState);
         if (currentElement) {
-          if (order.length) formgroup.formElements[ 0 ][ prop ][ order.indexOf(currentElement.name) ] = currentElement;
+          if (order && order.length) formgroup.formElements[ 0 ][ prop ][ order.indexOf(currentElement.name) ] = currentElement;
           else formgroup.formElements[ 0 ][ prop ].push(currentElement);
         }
       } else {
-        if (order.length) formgroup.formElements[ 0 ][ prop ][ order.indexOf(currentElement.name) ] = currentElement;
+        if (order && order.length) formgroup.formElements[ 0 ][ prop ][ order.indexOf(currentElement.name) ] = currentElement;
         else formgroup.formElements[ 0 ][ prop ].push(currentElement);
       }
     }
