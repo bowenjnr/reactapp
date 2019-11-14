@@ -604,15 +604,27 @@ class ResponsiveTable extends Component {
         </ResponsiveDatalist>
       } else if (this.props.useInputRows && header && header.formtype && header.formtype === 'checkbox') {
         let rowProps = (header.useRowProps && row.rowProps && row.rowProps[ header.sortid ]) ? Object.assign({}, row.rowProps[ header.sortid ]) : {};
+        let customCallbackfunction = () => { };
+        if (header.customOnChange) {
+          if (header.customOnChange.indexOf('func:this.props') !== -1) {
+            customCallbackfunction = this.props[header.customOnChange.replace('func:this.props.', '')];
+          } else if (header.customOnChange.indexOf('func:window') !== -1 && typeof window[header.customOnChange.replace('func:window.', '')] === 'function') {
+            customCallbackfunction = window[header.customOnChange.replace('func:window.', '')].bind(this);
+          }
+        }
+        let customOnChangeProps = Object.assign({}, header.customOnChangeProps, { onclickPropObject: row });
+        let checkboxLabel = (header.passProps && header.passProps.checkboxLabel) ? header.passProps.checkboxLabel : '';
         return <Checkbox {...header.passProps} {...rowProps}
           name={header.sortid}
           checked={value ? true : false}
           value={value}
+          label={(typeof checkboxLabel === 'object') ? this.getRenderedComponent(checkboxLabel) : checkboxLabel}
           onChange={(event, { value }) => {
             let text = !value;
             let name = header.sortid;
             let rowIndex = options.rowIndex;
             this.updateInlineRowText({ name, text, rowIndex, });
+            customCallbackfunction(customOnChangeProps)
           }}
         >
         </Checkbox>

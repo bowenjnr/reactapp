@@ -754,10 +754,21 @@ var ResponsiveTable = function (_Component) {
           }));
         } else if (this.props.useInputRows && header && header.formtype && header.formtype === 'checkbox') {
           var rowProps = header.useRowProps && row.rowProps && row.rowProps[header.sortid] ? (0, _assign2.default)({}, row.rowProps[header.sortid]) : {};
+          var customCallbackfunction = function customCallbackfunction() {};
+          if (header.customOnChange) {
+            if (header.customOnChange.indexOf('func:this.props') !== -1) {
+              customCallbackfunction = this.props[header.customOnChange.replace('func:this.props.', '')];
+            } else if (header.customOnChange.indexOf('func:window') !== -1 && typeof window[header.customOnChange.replace('func:window.', '')] === 'function') {
+              customCallbackfunction = window[header.customOnChange.replace('func:window.', '')].bind(this);
+            }
+          }
+          var customOnChangeProps = (0, _assign2.default)({}, header.customOnChangeProps, { onclickPropObject: row });
+          var checkboxLabel = header.passProps && header.passProps.checkboxLabel ? header.passProps.checkboxLabel : '';
           return _react2.default.createElement(_semanticUiReact.Checkbox, (0, _extends3.default)({}, header.passProps, rowProps, {
             name: header.sortid,
             checked: value ? true : false,
             value: value,
+            label: (typeof checkboxLabel === 'undefined' ? 'undefined' : (0, _typeof3.default)(checkboxLabel)) === 'object' ? this.getRenderedComponent(checkboxLabel) : checkboxLabel,
             onChange: function onChange(event, _ref2) {
               var value = _ref2.value;
 
@@ -765,6 +776,7 @@ var ResponsiveTable = function (_Component) {
               var name = header.sortid;
               var rowIndex = options.rowIndex;
               _this6.updateInlineRowText({ name: name, text: text, rowIndex: rowIndex });
+              customCallbackfunction(customOnChangeProps);
             }
           }));
         } else if (this.props.useInputRows && header && header.formtype && header.formtype === 'radio') {
