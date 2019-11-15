@@ -76,6 +76,7 @@ class ResponsiveButton extends Component {
     } else if (typeof clickprop === 'function') {
       onclickFunction = clickprop;
     }
+
     // onclickFunction = onclickFunction.bind(this);
     if (this.props.confirmModal) {
       return this.props.createModal(Object.assign({
@@ -108,7 +109,10 @@ class ResponsiveButton extends Component {
                       color: 'isPrimary',
                     },
                     onClick: () => {
-                      // console.debug('debugging this modal', this);
+                      if (this.props.confirmModal.blockPageUI) {
+                        this.props.setUILoadedState(false, this.props.confirmModal.blockPageUILayout);
+                        clickSuccessProps = Object.assign({}, {setUILoadedState: true}, clickSuccessProps)
+                      }
                       this.props.hideModal('last');
                       onclickFunction.call(this, onclickProp, clickFetchProps, clickSuccessProps);
                     },
@@ -125,7 +129,9 @@ class ResponsiveButton extends Component {
                     buttonProps: {
                       size: 'isMedium',
                     },
-                    onClick: 'func:this.props.hideModal',
+                    onClick: () => {
+                      this.props.hideModal('last');
+                    },
                     onclickProps: 'last',
                   },this.props.confirmModal.noButtonProps),
                   children: this.props.confirmModal.noButtonText||'No',
