@@ -164,5 +164,5 @@
     "ssr_build": "babel adminclient/src -d adminclient/_src --ignore adminclient/src/components/RACodeMirror/",
     "test": "mocha -R spec --recursive"
   },
-  "version": "0.0.9"
+  "version": "0.1.0"
 }

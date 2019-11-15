@@ -143,6 +143,7 @@ var ResponsiveButton = function (_Component) {
       } else if (typeof clickprop === 'function') {
         onclickFunction = clickprop;
       }
+
       // onclickFunction = onclickFunction.bind(this);
       if (this.props.confirmModal) {
         return this.props.createModal((0, _assign2.default)({
@@ -172,7 +173,10 @@ var ResponsiveButton = function (_Component) {
                     color: 'isPrimary'
                   },
                   onClick: function onClick() {
-                    // console.debug('debugging this modal', this);
+                    if (_this2.props.confirmModal.blockPageUI) {
+                      _this2.props.setUILoadedState(false, _this2.props.confirmModal.blockPageUILayout);
+                      clickSuccessProps = (0, _assign2.default)({}, { setUILoadedState: true }, clickSuccessProps);
+                    }
                     _this2.props.hideModal('last');
                     onclickFunction.call(_this2, onclickProp, clickFetchProps, clickSuccessProps);
                   },
@@ -188,7 +192,9 @@ var ResponsiveButton = function (_Component) {
                   buttonProps: {
                     size: 'isMedium'
                   },
-                  onClick: 'func:this.props.hideModal',
+                  onClick: function onClick() {
+                    _this2.props.hideModal('last');
+                  },
                   onclickProps: 'last'
                 }, this.props.confirmModal.noButtonProps),
                 children: this.props.confirmModal.noButtonText || 'No'

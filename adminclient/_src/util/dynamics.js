@@ -253,6 +253,9 @@ var fetchAction = exports.fetchAction = function _fetchAction(pathname, fetchOpt
         } else {
           successCallback(success.successProps || successData);
         }
+        if (success.setUILoadedState) {
+          _this3.props.setUILoadedState(true);
+        }
       });
     } else {
       return res.json();
