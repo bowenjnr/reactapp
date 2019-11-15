@@ -196,7 +196,7 @@ export const fetchAction = function _fetchAction(pathname, fetchOptions, success
   // let pathname, fetchOptions, success;
   if (typeof pathname === 'object') {
     pathname = pathname.pathname;
-    fetchOptions = pathname.fetchOptions;
+    fetchOptions = pathname.fetchOptions; 
     success = pathname.success;
   }
   // console.debug('in fetch action this', this,{ pathname, fetchOptions, success, customThis, });
@@ -238,6 +238,9 @@ export const fetchAction = function _fetchAction(pathname, fetchOptions, success
               this.props.setDynamicData(success.dynamicField, success.successProps || successData);
             } else {
               successCallback(success.successProps || successData);
+            }
+            if(success.setUILoadedState) {
+              this.props.setUILoadedState(true)
             }
           });
       } else {
