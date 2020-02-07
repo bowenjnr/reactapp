@@ -260,5 +260,8 @@ var fetchAction = exports.fetchAction = function _fetchAction(pathname, fetchOpt
     } else {
       return res.json();
     }
-  }).catch(this.props.errorNotification);
+  }).catch(function (e) {
+    _this3.props.errorNotification(e);
+    _this3.props.setUILoadedState(true);
+  });
 };

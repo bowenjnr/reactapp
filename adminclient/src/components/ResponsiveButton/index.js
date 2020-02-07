@@ -116,7 +116,6 @@ class ResponsiveButton extends Component {
                       this.props.hideModal('last');
                       onclickFunction.call(this, onclickProp, clickFetchProps, clickSuccessProps);
                     },
-                    onclickProps: 'last',
                   },this.props.confirmModal.yesButtonProps),
                   children: this.props.confirmModal.yesButtonText||'Yes',
                 },
@@ -129,9 +128,7 @@ class ResponsiveButton extends Component {
                     buttonProps: {
                       size: 'isMedium',
                     },
-                    onClick: () => {
-                      this.props.hideModal('last');
-                    },
+                    onClick: this.props.hideModal,
                     onclickProps: 'last',
                   },this.props.confirmModal.noButtonProps),
                   children: this.props.confirmModal.noButtonText||'No',

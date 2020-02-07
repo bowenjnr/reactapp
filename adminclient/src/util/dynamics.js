@@ -246,5 +246,8 @@ export const fetchAction = function _fetchAction(pathname, fetchOptions, success
       } else {
         return res.json();
       }
-    }).catch(this.props.errorNotification);
+    }).catch((e) => {
+      this.props.errorNotification(e);
+      this.props.setUILoadedState(true);
+    });
 };

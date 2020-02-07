@@ -179,8 +179,7 @@ var ResponsiveButton = function (_Component) {
                     }
                     _this2.props.hideModal('last');
                     onclickFunction.call(_this2, onclickProp, clickFetchProps, clickSuccessProps);
-                  },
-                  onclickProps: 'last'
+                  }
                 }, this.props.confirmModal.yesButtonProps),
                 children: this.props.confirmModal.yesButtonText || 'Yes'
               }, {
@@ -192,9 +191,7 @@ var ResponsiveButton = function (_Component) {
                   buttonProps: {
                     size: 'isMedium'
                   },
-                  onClick: function onClick() {
-                    _this2.props.hideModal('last');
-                  },
+                  onClick: this.props.hideModal,
                   onclickProps: 'last'
                 }, this.props.confirmModal.noButtonProps),
                 children: this.props.confirmModal.noButtonText || 'No'
