@@ -218,6 +218,7 @@ var fetchAction = exports.fetchAction = function _fetchAction(pathname, fetchOpt
     fetchOptions = pathname.fetchOptions;
     success = pathname.success;
   }
+  var setUILoadedStateOnFinish = success && success.setUILoadedState ? true : false;
   // console.debug('in fetch action this', this,{ pathname, fetchOptions, success, customThis, });
   var state = _getState.call(this)();
   var headers = state.settings && state.settings.userprofile && state.settings.userprofile.options && state.settings.userprofile.options.headers ? state.settings.userprofile.options.headers : {};
@@ -253,7 +254,7 @@ var fetchAction = exports.fetchAction = function _fetchAction(pathname, fetchOpt
         } else {
           successCallback(success.successProps || successData);
         }
-        if (success.setUILoadedState) {
+        if (setUILoadedStateOnFinish) {
           _this3.props.setUILoadedState(true);
         }
       });
@@ -262,6 +263,8 @@ var fetchAction = exports.fetchAction = function _fetchAction(pathname, fetchOpt
     }
   }).catch(function (e) {
     _this3.props.errorNotification(e);
-    _this3.props.setUILoadedState(true);
+    if (setUILoadedStateOnFinish) {
+      _this3.props.setUILoadedState(true);
+    }
   });
 };

@@ -199,6 +199,7 @@ export const fetchAction = function _fetchAction(pathname, fetchOptions, success
     fetchOptions = pathname.fetchOptions; 
     success = pathname.success;
   }
+  let setUILoadedStateOnFinish = (success && success.setUILoadedState) ? true : false;
   // console.debug('in fetch action this', this,{ pathname, fetchOptions, success, customThis, });
   let state = _getState.call(this)();
   let headers = (state.settings && state.settings.userprofile && state.settings.userprofile.options && state.settings.userprofile.options.headers)
@@ -239,15 +240,18 @@ export const fetchAction = function _fetchAction(pathname, fetchOptions, success
             } else {
               successCallback(success.successProps || successData);
             }
-            if(success.setUILoadedState) {
-              this.props.setUILoadedState(true)
+            if (setUILoadedStateOnFinish) {
+              this.props.setUILoadedState(true);
             }
           });
       } else {
         return res.json();
       }
-    }).catch((e) => {
+    })
+    .catch((e) => {
       this.props.errorNotification(e);
-      this.props.setUILoadedState(true);
+      if (setUILoadedStateOnFinish) {
+        this.props.setUILoadedState(true);
+      }
     });
 };
