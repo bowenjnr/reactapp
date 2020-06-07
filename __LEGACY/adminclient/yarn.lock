@@ -5635,6 +5635,12 @@ react-smooth@0.1.20:
     raf "^3.2.0"
     react-addons-transition-group "^0.14.0 || ^15.0.0"
 
+react-text-mask@^5.0.2:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-5.4.3.tgz#991efb4299e30c2e6c2c46d13f617169463e0d2d"
+  dependencies:
+    prop-types "^15.5.6"
+
 react-textarea-autosize@^4.0.4:
   version "4.0.5"
   resolved "https://registry.npmjs.org/react-textarea-autosize/-/react-textarea-autosize-4.0.5.tgz#55379f6a6fa575fc87d1b8de2756e57e3b6c995d"
@@ -6475,6 +6481,10 @@ test-exclude@^2.1.1:
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
 
+text-mask-addons@^3.6.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/text-mask-addons/-/text-mask-addons-3.8.0.tgz#17b61ef665a4f36811f2ea1f01a223b4be61ab26"
+
 text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
@@ -6864,8 +6874,8 @@ websocket-driver@>=0.3.6, websocket-driver@>=0.5.1:
     websocket-extensions ">=0.1.1"
 
 websocket-extensions@>=0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.1.tgz#76899499c184b6ef754377c2dbb0cd6cb55d29e7"
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
 
 whatwg-encoding@^1.0.1:
   version "1.0.1"
