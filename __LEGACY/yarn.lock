@@ -4382,6 +4382,12 @@ react-smooth@0.1.20:
     raf "^3.2.0"
     react-addons-transition-group "^0.14.0 || ^15.0.0"
 
+react-text-mask@^5.0.2:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-5.4.3.tgz#991efb4299e30c2e6c2c46d13f617169463e0d2d"
+  dependencies:
+    prop-types "^15.5.6"
+
 react@15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.3.2.tgz#a7bccd2fee8af126b0317e222c28d1d54528d09e"
@@ -5091,6 +5097,10 @@ tar@~2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
+text-mask-addons@^3.6.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/text-mask-addons/-/text-mask-addons-3.8.0.tgz#17b61ef665a4f36811f2ea1f01a223b4be61ab26"
+
 through2@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npmjs.org/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -5433,8 +5443,8 @@ websocket-driver@>=0.5.1:
     websocket-extensions ">=0.1.1"
 
 websocket-extensions@>=0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.1.tgz#76899499c184b6ef754377c2dbb0cd6cb55d29e7"
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
 
 whatwg-fetch@>=0.10.0, whatwg-fetch@^2.0.3:
   version "2.0.3"
